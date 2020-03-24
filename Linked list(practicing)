@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <malloc.h>
+
+typedef struct __node {
+	int data;
+	struct __node *next; //다른 노드 구조체를 가리킴
+} NODE;
+
+NODE *AllocNode(void) {
+	return (NODE*)malloc(sizeof(NODE));
+}
+
+void SearchNode(NODE **head, int num) {
+	NODE *p;
+	p = *head;
+	while (NULL != p) {
+		if (p->next == num) {
+			printf("데이터를 찾았습니다.");
+			break;
+		}
+		p = p->next;
+	}
+}
+
+void RemoveNode(NODE **head, NODE **tail) {
+	NODE *p;
+	while (NULL != *head) {
+		p = (*head)->next;
+		free(*head);
+		*head = p;
+	}
+	*tail = *head; //둘다 NULL로
+}
+
+void AddNumber(NODE **head, NODE **tail, int num) {
+	if (NULL != *head) {
+		(*tail)->next = AllocNode();
+		*tail = (*tail)->next;
+	}
+	else {
+		*head = AllocNode();
+		*tail = *head;
+	}
+	(*tail)->data = num;
+	(*tail)->next = NULL;
+}
+
+int main() {
+	int num;
+	NODE *head = NULL;
+	NODE *tail = NULL;
+	while (1) {
+		puts("숫자 입력(9999 == 종료): ");
+		scanf("%d", &num);
+		if (num == 9999) break;
+		AddNumber(&head, &tail, num);
+	}
+	SearchNode(&head, 15);
+	RemoveNode(&head, &tail);
+}
