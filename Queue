@@ -1,0 +1,86 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct queue {
+	int max;	//큐 용량
+	int num;	//현재 데이터
+	int *que;	//큐 본체
+	int front;
+	int rear;
+}QUEUE;
+
+void Initialize(QUEUE *q, int max) {
+	if (q != NULL) {
+		q->max = max;
+		q->num = 0;
+		q->front = -1;
+		q->rear = -1;
+		q->que = calloc(max, sizeof(int));
+	}
+}
+
+int Enque(QUEUE *q, int data) {
+		if (q->num >= q->max){
+			puts("Queue is already full!\n");
+			return -1;
+	}
+		else{
+			q->num++;
+			q->que[q->rear] = data;
+			q->rear++;
+			if (q->rear == q->max)
+				q->rear = 0;
+			return 0;
+		}
+	}
+
+int Deque(QUEUE *q, int *data) {
+	if (q->num <= 0) {
+		puts("Queue is empty!");
+		return -1;
+	}
+	else {
+		q->num--;
+		*data = q->que[q->front];
+		q->front++;
+		if (q->front == q->max)
+			q->front = 0;
+		return 0;
+	}
+}
+
+int Search(QUEUE *q, int data) {
+	int i, idx;
+	for (i = 0; i < q->num; i++) {
+		if (q->que[idx = (i + q->front) % q->max] == data)
+			return idx;
+	}
+	return -1;
+}
+
+void Print(QUEUE *q) {
+	int i;
+	for (i = 0; i < q->num; i++) {
+		printf("%d\n", q->que[(i + q->front) % q->max]);
+	}
+}
+
+
+void Terminate(QUEUE *q) {
+	if (q->que != NULL)
+		free(q->que);
+	q->max = q->num = q->front = q->rear = 0;
+}
+
+int main() {
+	int x;
+	QUEUE que1;
+	Initialize(&que1, 8);
+	Enque(&que1, 5);
+	Enque(&que1, 13);
+	Enque(&que1, 2);
+	Print(&que1);
+	Deque(&que1, &x);
+	Deque(&que1, &x);
+	Print(&que1);
+}
