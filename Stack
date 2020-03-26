@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct stack {
+	int max; //스택 용량
+	int ptr;  //스택의 인덱스를 가리키는: '스택포인터'
+	int *stk; //스택의 첫 요소에 대한 포인터
+}STACK;
+
+int Initialize(STACK *s, int max) {
+	s->ptr = 0;
+	if ((s->stk = calloc(max, sizeof(int))) == NULL) {
+		s->max = 0;
+		return -1;
+	}
+	s->max = max;
+	return 0;
+}
+int Push(STACK *s, int data) {
+	if (s->ptr >= s->max)	//스택의 위치가 max보다 높으면
+		return -1;
+	s->stk[s->ptr] = data; //아니면 data의 주소를 스택배열에 저장
+	s->ptr++;	//스택의 위치를 증가시킴
+	return 0;
+}
+
+int Pop(STACK *s, int *data) {
+	if (s->ptr <= 0)
+		return -1;
+	*data = s->stk[s->ptr];
+	s->ptr--;
+	return 0;
+}
+
+int Search(const STACK *s, int data) {
+	int i;
+	for (i = s->ptr - 1; i >= 0; i--)
+		if (s->stk[i] == data)
+			return i;
+	return -1;
+}
+
+void Print(const STACK *s) {
+	int i;
+	for (i = 0; i < s->ptr; i++) {
+		printf("%d \n", s->stk[i]);
+	}
+}
+
+void Terminate(STACK *s) {
+	if (s->stk != NULL)
+		free(s->stk);
+	s->max = s->ptr = 0;
+}
+int main() {
+	int x;
+	STACK newstack;
+	if (Initialize(&newstack, 8) == -1)
+		puts("스택 생성에 실패했습니다.");
+
+	Push(&newstack, 4);
+	Push(&newstack, 5);
+	Print(&newstack);
+	Pop(&newstack, &x);
+	Pop(&newstack, &x);
+	Print(&newstack);
+	Push(&newstack, 8);
+	Print(&newstack);
+	Pop(&newstack, &x);
+	Terminate(&newstack);
+}
