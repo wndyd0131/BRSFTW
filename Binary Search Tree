@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct bst {
+	int data;
+	struct bst *left;
+	struct bst *right;
+}BST;
+
+
+BST *root = NULL;
+
+
+BST *Insert(BST *n ,int data) {
+	if (n == NULL) {
+		n = (BST *)malloc(sizeof(BST));
+		n->data = data;
+		n->left = n->right = NULL;
+		return n;
+	}
+	else {
+		if (n->data > data)
+			n->left = Insert(n->left, data);
+		else
+			n->right = Insert(n->right, data);
+	}
+	return n;
+}
+
+BST *Delete(BST *n, int data) {
+	BST *temp;
+	if (n == NULL) {
+		printf("트리가 비어있습니다.\n");
+		return NULL;
+	}//뭔지 모르겠음
+	if (n->data > data)
+		n = n->left;
+	else if(n->data < data)
+		n = n->right;
+	else if (n->left && n->right) {
+		temp = temp->right;
+		while (temp->left)
+			temp = temp->left;
+		n->data = temp->data;
+		n->right = Delete(n->right, temp->data);
+	}
+	else {
+		if (n->left == NULL) {
+			free(n);
+			return n->right;
+		}
+		else {
+			free(n);
+			return n->left;
+		}
+	}
+
+
+}
+
+BST *Search(BST *n, int data) {
+	while (1) {
+		if (n->data == data)
+			return n;
+		if (n->data > data) {
+			if (n->data == NULL)
+				return NULL;
+			n = n->left;
+		}
+		else{
+			if (n->data == NULL)
+				return NULL;
+			n = n->right;
+		}
+	}
+}//or return n/ Search(n->left, data)/ Search(n->right, data);
+
+void Print(BST *n) {
+	if (n != NULL) {
+		printf("%d\n", n->data);
+		Print(n->left);
+		Print(n->right);
+	}
+	return;
+}
+
+
+int main() {
+	root = Insert(root, 10);
+	root = Insert(root, 2);
+
+	Print(root);
+	return 0;
+}
