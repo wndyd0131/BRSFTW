@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <string.h>
+Get_String(char *str) {
+	printf("문자열을 입력하시오: ");
+	scanf("%s", str);
+	return;
+}
+
+Comparing(char *str) {
+	char AlphaCnt[26] = { 0 };
+	int len = strlen(str), i, max, temp;
+	for (i = 0; i < len; i++) {
+		if (str[i] >= 'a' && str[i] <= 'z')
+		str[i] -= 32;
+	}
+	for (i = 0; i < len; i++) {
+		if (str[i] >= 'A' && str[i] <= 'Z') {
+			AlphaCnt[str[i] - 'A']++;
+		}
+	}
+	for (i = 0; i < 26; i++) {
+		printf("%d", AlphaCnt[i]);
+	}
+	max = 0;
+	for (i = 0; i < 26; i++) {
+		if (max < AlphaCnt[i]) {
+			max = AlphaCnt[i];
+			temp = i;
+		}
+	}
+		printf("%c가 제일 많음", 'A' + temp);
+		printf("%d", max);
+}
+
+int main() {
+	char str[50];
+	Get_String(str);
+	Comparing(str);
+}
