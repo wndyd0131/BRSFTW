@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-Get_String(char *str) {
+void Get_String(char *str) {
 	printf("문자열을 입력하시오: ");
 	scanf("%s", str);
 	return;
 }
 
-Comparing(char *str) {
+void Comparing(char *str) {
 	char AlphaCnt[26] = { 0 };
 	bool TorF = true;
 	int len = strlen(str), i, max, temp;
