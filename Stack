@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct stack {
+typedef struct stack{
 	int max; //스택 용량
 	int ptr;  //스택의 인덱스를 가리키는: '스택포인터'
 	int *stk; //스택의 첫 요소에 대한 포인터
@@ -32,7 +32,7 @@ int Pop(STACK *s, int *data) {
 	return 0;
 }
 
-int Search(const STACK *s, int data) {
+int Search(STACK *s, int data) {
 	int i;
 	for (i = s->ptr - 1; i >= 0; i--)
 		if (s->stk[i] == data)
@@ -40,7 +40,7 @@ int Search(const STACK *s, int data) {
 	return -1;
 }
 
-void Print(const STACK *s) {
+void Print(STACK *s) {
 	int i;
 	for (i = 0; i < s->ptr; i++) {
 		printf("%d \n", s->stk[i]);
