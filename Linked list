@@ -1,0 +1,78 @@
+#include <stdio.h>
+#include <malloc.h>
+
+typedef struct __node {
+	int data;
+	struct __node *next; //다른 노드 구조체를 가리킴
+} NODE;
+
+void SearchNode(NODE *head, int data) {
+	NODE *p;
+	p = head;
+	while (NULL != p) {
+		if (p->data == data) {
+			printf("데이터: %d를(을) 찾았습니다.\n", p->data);
+			break;
+		}
+		p = p->next;
+	}
+}
+
+void RemoveNode(NODE *head, int data) {//원래 tail과 head로 했던 것을 head에서부터 끝까지 찾는 것으로 변경
+	NODE *p = head;
+	NODE *temp;
+	int found = 0;
+
+	while (p != NULL) {
+		if (p->data == data) {
+			found = 1;
+			break; //찾으면 break
+		}
+		else {
+			temp = p; //이전 기억해두기
+			p = p->next; //다음노드로 가기
+		}
+	}
+	if (found == 0)
+		printf("No certain data!\n"); //0이면 없다는 뜻
+	else {
+		temp->next = p->next; //이전 노드와 현재의 다음 노드를 잇기
+	}
+	free(p); //현재 노드 지우기
+}
+
+void AddNumber(NODE *node, int data) {
+	NODE *newNode = (NODE *)malloc(sizeof(NODE));
+	newNode->next = node->next;
+	newNode->data = data;
+
+	node->next = newNode;
+	//뉴노드의 뒤에 널을 놓고, 매개변수로 받은 노드가 뉴노드를 가리키도록 하는 함수
+	//거꾸로 쌓게 됨
+	}
+
+void PrintNode(NODE *node) { //PrintNode 추가
+	NODE *p = node;
+	while (p != NULL) {
+		printf("%d\n", p->data);
+		p = p->next;
+	}
+}
+
+int main() {
+	int num;
+	NODE *head = (NODE *)malloc(sizeof(NODE));
+	while (1) {
+		puts("숫자 입력(9999 == 종료): ");
+		scanf("%d", &num);
+		if (num == 9999) break;
+		AddNumber(head, num);
+	}
+	SearchNode(head, 15);
+	SearchNode(head, 19);
+	SearchNode(head, 12);
+	PrintNode(head);
+	RemoveNode(head, 12);
+	RemoveNode(head, 10);
+	PrintNode(head);
+}
