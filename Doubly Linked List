@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct __node{
+	int data;
+	struct __node *prev;
+	struct __node *next;
+}NODE;
+
+typedef struct list {
+	NODE *head1, *tail1;
+	int count;
+}LIST;
+
+NODE *NewNode(int data) {
+	NODE *newNode = (NODE *)malloc(sizeof(NODE));
+	newNode->next = newNode->prev = NULL;
+	newNode->data = data;
+	return newNode;
+}
+
+void InitHandT(LIST *list){
+	list->head1 = NewNode(0);
+	list->tail1 = NewNode(0);
+	list->head1->next = list->tail1;
+	list->tail1->prev = list->head1;
+}
+
+
+
+NODE *Insertion(LIST *list, int data) { //이해가 잘 안감
+	NODE *newNode = NewNode(data);
+	newNode->prev = list->tail1->prev; //뉴노드의 이전에 tail의 이전 노드 대입
+	newNode->next = list->tail1; //뉴노드의 다음을 tail로 대입
+	list->tail1->prev->next = newNode;
+	list->tail1->prev = newNode;
+	list->count++;
+}
+	NODE *Deletion(NODE *node, int *data){ //이해가 잘 안감
+	
+}
+
+NODE *Search(NODE *node, int data) { //이해가 잘 안감
+}
+
+
+int main() {
+	LIST list;
+	InitHandT(&list);
+	Insertion(&list, 5);
+	Insertion(&list, 3);
+	Insertion(&list, 12);
+	return 0;
+}
