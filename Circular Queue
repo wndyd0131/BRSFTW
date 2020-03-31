@@ -1,0 +1,102 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct que {
+	int *que;
+	int front;
+	int rear;
+	int size;
+}QUEUE;
+
+void InitQueue(QUEUE *q, int size) {
+	if (q != NULL) {
+		q->que = calloc(size, sizeof(int));
+		q->front = -1;
+		q->rear = -1;
+		q->size = size;
+}
+int isFull(QUEUE *q) {
+	if ((q->rear + 1) % q->size == q->front){ // rear + 1이 size랑 값이 똑같아지면 포화상태
+		return 1;
+	}
+	return 0;
+}
+
+int isEmpty(QUEUE *q) {
+	if (q->rear == q->front) {
+		return 1;
+	}
+	return 0;
+}
+
+int Enque(QUEUE *q, int data) {
+	if (isFull(q)) {
+		printf("Queue is already full!\n");
+		return -1;
+	}
+	else {
+		q->rear = (q->rear + 1) % q->size;
+		q->que[q->rear] = data;
+	}
+	return 0;
+}
+
+int Deque(QUEUE *q, int *data) { //Deque가 잘 안되는 거 같음
+	if (isEmpty(q)) {
+		printf("Queue is empty!\n");
+		return -1;
+	}
+	else {
+		q->front = (q->front + 1) % q->size;
+		*data = q->que[q->front];
+	}
+	return 0;
+}
+
+int Search(QUEUE *q, int data) {
+	int i;
+	if (q->rear < 0) {
+		printf("Queue is empty!\n");
+		return -1;
+	}
+	else {
+		for (i = 0; i < q->rear; i++) {
+			if (q->que[i] == data) {
+				printf("%d를 찾았습니다.\n", q->que[i]);
+				return 0;
+			}
+		}
+	}
+	printf("%d를(을) 찾지 못했습니다.\n", data);
+	return 0;
+}
+
+void Print(QUEUE *q) {
+	int i;
+	for (i = 0; i < q->rear+1; i++) {
+		printf("%d\n", q->que[i]);
+	}
+}
+
+void Terminate(QUEUE *q) {
+	if (q != NULL)
+		free(q->que);
+	q->size = q->front = q->rear = 0;
+}
+
+int main() {
+	int x;
+	QUEUE que;
+	InitQueue(&que, 8);
+	Enque(&que, 10);
+	Enque(&que, 20);
+	Enque(&que, 30);
+	Enque(&que, 40);
+	Enque(&que, 50);
+	Enque(&que, 60);
+	Enque(&que, 70);
+	Enque(&que, 80);
+	Enque(&que, 80);
+	Print(&que);
+	Terminate(&que);
+	return 0;
+}
