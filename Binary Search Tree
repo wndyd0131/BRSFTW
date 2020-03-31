@@ -11,7 +11,7 @@ typedef struct bst {
 BST *root = NULL;
 
 
-BST *Insert(BST *n ,int data) {
+BST *Insert(BST *n, int data) {
 	if (n == NULL) {
 		n = (BST *)malloc(sizeof(BST));
 		n->data = data;
@@ -35,7 +35,7 @@ BST *Delete(BST *n, int data) {
 	}//뭔지 모르겠음
 	if (n->data > data)
 		n = n->left;
-	else if(n->data < data)
+	else if (n->data < data)
 		n = n->right;
 	else if (n->left && n->right) {
 		temp = temp->right;
@@ -58,22 +58,22 @@ BST *Delete(BST *n, int data) {
 
 }
 
-BST *Search(BST *n, int data) {
-	while (1) {
-		if (n->data == data)
-			return n;
-		if (n->data > data) {
-			if (n->data == NULL)
-				return NULL;
-			n = n->left;
+BST *Search(BST *n, int data) { //수정함 (근데 잘 안됨)
+
+	BST *p = n; //원래 버전은 실행이 잘 안됐으나
+	while (p->data != NULL) { //이번에는 실행이 되나, 한 번 하고 그 다음은 안되는..
+		if (p->data > data) {
+			p = p->left; //각 왼쪽 오른쪽 Search에서 널 확인하는 줄을 위로 옮김
 		}
-		else{
-			if (n->data == NULL)
-				return NULL;
-			n = n->right;
+		else {
+			p = p->right;
+		}
+		if (p->data == data) {
+			printf("%d를 찾았습니다.\n", p->data);
+			return;
 		}
 	}
-}//or return n/ Search(n->left, data)/ Search(n->right, data);
+} //or return n/ Search(n->left, data)/ Search(n->right, data);
 
 void Print(BST *n) {
 	if (n != NULL) {
@@ -88,7 +88,9 @@ void Print(BST *n) {
 int main() {
 	root = Insert(root, 10);
 	root = Insert(root, 2);
-
 	Print(root);
+	Search(root, 2);
+	Search(root, 10);
+	Search(root, 10);
 	return 0;
 }
