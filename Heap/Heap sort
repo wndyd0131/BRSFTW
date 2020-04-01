@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <math.h>
+#include <time.h>
+#define HEAP_SIZE 100
+#define SWAP(t,x,y) ((t = x), (x = y), (y = t))
+
+//HEAP
+
+int heap_array[HEAP_SIZE];
+int heap_count = 0;
+
+void push(int data) {
+	int temp; //스왑을 위한 변수
+	int idx = ++heap_count;
+	heap_array[idx] = data; //원하는 값을 넣음
+	// child/2가 parent인덱스
+	while (idx > 1 && heap_array[idx / 2] < heap_array[idx]) {// child가 parent보다 크면
+		SWAP(temp, heap_array[idx / 2], heap_array[idx]); //parent랑 child랑 스왑
+		idx = idx / 2; //인덱스 변화
+	}
+		
+}
+
+int pop() {
+	int result = heap_array[1];
+	heap_array[1] = heap_array[heap_count--]; //루트 유지를 위해 스왑
+
+	int parent = 1; //루트 노드
+	int child;
+	int temp;
+	int i;
+
+	while (1) {
+		child = parent * 2; //갈수록 밑을 검사(?)
+		if (child + 1 <= heap_count && heap_array[child] < heap_array[child + 1]) 
+			child++; //오른쪽 노드가 힙 push된 수 보다 작거나 같고 왼쪽 자식이 오른쪽 자식보다 작으면 child++
+		if (heap_array[parent] > heap_array[child] || heap_count < child) 
+			break; //부모노드가 자식노드보다 크거나, 힙 push된 수가 자식 수보다 낮으면 break
+		SWAP(temp, heap_array[child], heap_array[parent]);
+		parent = child; //자식 노드를 부모 노드에 대입 
+	}
+	for (i = 1; i < heap_count; i++) {
+		printf("%d\n", heap_array[i]);
+	}
+	puts("\n");
+	return result;
+}
+
+//HEAP SORT (?)
+
+void HeapSort(int arr[], int num) {
+	int i;
+	int n;
+	for (i = 0; i < num; i++) {
+		push(arr[i]);
+	}
+	n = pop();
+	printf("%d을 제거했습니다.\n", n);
+	}
+
+int main() { // 잘 안됨 ㅠㅠ
+	int arr[10], i;
+	for (i = 0; i < sizeof(arr) / sizeof(int); i++) {
+		scanf("%d", &arr[i]);
+	}
+		HeapSort(arr, 10);
+}
