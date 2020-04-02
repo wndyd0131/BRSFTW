@@ -1,6 +1,5 @@
 #include <stdio.h>
-/* #1
-int main() {
+void function_1() {
 	int num, i;
 	printf("Input the number: ");
 	scanf("%d", &num);
@@ -8,10 +7,8 @@ int main() {
 		printf("%d * %d = %d\n", num, i, num * i);
 	}
 }
-*/
 
-/* #2
-int main() {
+void function_2(){
 	int num, i, j;
 	printf("Input the number: ");
 	scanf("%d", &num);
@@ -21,10 +18,8 @@ int main() {
 		printf("\n");
 	}
 }
-*/
 
-/* #3
-int main() {
+void function_3() {
 	int num, i, j;
 	printf("Input the number: ");
 	scanf("%d", &num);
@@ -35,10 +30,8 @@ int main() {
 
 	}
 }
-*/
 
-/* #4
-int main() {
+void function_4() {
 	int num, i, j;
 	printf("Input the number: ");
 	scanf("%d", &num);
@@ -48,10 +41,8 @@ int main() {
 		printf("\n");
 	}
 }
-*/
 
-/* #5
-int main() {
+void function_5() {
 	int num, i, j, k = 1;
 	printf("Input the number: ");
 	scanf("%d", &num);
@@ -61,4 +52,91 @@ int main() {
 		printf("\n");
 	}
 }
-*/
+
+
+void function_6() {
+	int i, j, k, num;
+	printf("Input the number: ");
+	scanf("%d", &num);
+	for (i = 1; i <= num; i++) {
+		for (k = 0; k < num - i; k++) {
+			printf("%c", ' ');
+		}
+		for (j = 0; j < i; j++) {
+			printf("%s", " *");
+		}
+		printf("%c", '\n');
+	}
+	return;
+}
+
+void function_7() {
+	int i, j, k, l = 1, num;
+	printf("Input the number: ");
+	scanf("%d", &num);
+	for (i = 1; i <= num; i++) {
+		for (k = 0; k < num - i; k++) {
+			printf("%c", ' ');
+		}
+		for (j = 0; j < i; j++) {
+			printf(" %d", l++);
+		}
+		printf("\n");
+	}
+}
+void function_8() {
+	int i, j, k, num;
+	printf("Input the number: ");
+	scanf_s("%d", &num);
+	for (i = 1; i <= num; i++) {
+		for (k = 0; k < num - i; k++) {
+			printf("%c", ' ');
+		}
+		for (j = 0; j < i; j++) {
+			printf(" %d", i);
+		}
+		printf("\n");
+	}
+}
+
+void function_9() {
+	int i, j, k = 0, num;
+	printf("Input the number: ");
+	scanf("%d", &num);
+	for (i = 1; i <= num; i++) {
+		for (j = 0; j < i; j++) {
+			if (k == 0) {
+				k = 1;
+				printf("%d", k);
+			}
+			else {
+				k = 0;
+				printf("%d", k);
+			}
+		}
+		printf("\n");
+		if (i % 2 == 0)
+			k = 0;
+		else {
+			k = 1;
+		}
+	}
+}
+
+void function_10() {
+
+}
+
+
+int main() {
+	function_1();
+	function_2();
+	function_3();
+	function_4();
+	function_5();
+	function_6();
+	function_7();
+	function_8();
+	function_9();
+	return 0;
+}
