@@ -39,7 +39,7 @@ int pop() {
 		SWAP(temp, heap_array[child], heap_array[parent]);
 		parent = child; //자식 노드를 부모 노드에 대입 
 	}
-	for (i = 1; i < heap_count; i++) {
+	for (i = 1; i <= heap_count; i++) {
 		printf("%d\n", heap_array[i]);
 	}
 	puts("\n");
