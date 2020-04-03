@@ -1,0 +1,56 @@
+#include <stdio.h> //need 복습.. 너무 참고만 함
+#define MAX_SIZE 100
+#define SWAP(x, y, t) ((t) = (x), (x) = (y), (y) = (t))
+
+
+int partition (int arr[], int left, int right) {
+	int low = left;
+	int high = right;
+	int pivot = arr[left];
+	int temp;
+
+	while (low < high) {
+		while (arr[low] > pivot) {
+			if (low <= right) {
+				low++;
+			}
+		}
+		while (arr[high] < pivot) {
+			if (high >= left) {
+				high--;
+			}
+		}
+		if (low < high) {
+			SWAP(arr[low], arr[high], temp);
+		}
+	}
+	SWAP(pivot, arr[high], temp);
+
+	return high;
+}
+
+void qck_sort(int arr[], int left, int right) {
+	if (left < right) { // ?
+		int ret = partition(arr, left, right);
+
+		qck_sort(arr, left, ret - 1);
+		qck_sort(arr, ret + 1, right);
+	}
+	
+}
+
+int main() {
+	int num, i;
+	int arr[MAX_SIZE];
+	printf("How many numbers do you need? : ");
+	scanf("%d", &num);
+	for (i = 0; i < num; i++) {
+		printf("Input the number: ");
+		scanf("%d", &arr[i]);
+	}
+	qck_sort(arr, 0, num - 1);
+	for (i = 0; i < num; i++) {
+		printf("%d\n", arr[i]);
+	}
+	return 0;
+}
