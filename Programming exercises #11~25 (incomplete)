@@ -1,0 +1,76 @@
+#include <stdio.h>
+#define MAX_SIZE 50
+
+int recursive(int num) {
+	if (num == 1)
+		return 1;
+	else
+		return recursive(num - 1)+1;
+}
+void function_11() {
+	int num = 50;
+	for (int i = 1; i <= num; i++) {
+		printf("%d ", recursive(i));
+	}
+	printf("\n");
+}
+
+int fibo(int num) {
+	if (num == 0)
+		return 0;
+	else if (num == 1)
+		return 1;
+	else
+		return fibo(num - 1) + fibo(num - 2);
+}
+void function_12() {
+	int num;
+	printf("Input the number of terms: ");
+	scanf("%d", &num);
+	for (int i = 1; i <= num; i++) {
+		printf("%d ", fibo(i));
+	}
+	printf("\n");
+}
+
+void function_16() {
+	int arr[MAX_SIZE];
+	int n, i, j, temp;
+	printf("Input the number you need for an array: ");
+	scanf("%d", &n);
+	for (i = 0; i < n; i++) {
+		printf("Input the number into the array: ");
+		scanf("%d", &arr[i]);
+	}
+	printf("Original version: ");
+	for (i = 0; i < n; i++) {
+		printf("%d ", arr[i]);
+	}
+	printf("\n");
+	i = 0;
+	j = n - 1;
+	while(i <= j){
+		temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+		i++;
+		j--;
+	}
+	printf("Reverse version: ");
+	for (i = 0; i < n; i++) {
+		printf("%d ", arr[i]);
+	}
+}
+
+
+int main() {
+	function_11();
+	function_12();
+	/*
+	function_13();
+	function_14();
+	function_15();
+	*/
+	function_16();
+	return 0;
+}
