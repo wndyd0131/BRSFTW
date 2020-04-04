@@ -124,7 +124,24 @@ void function_9() {
 }
 
 void function_10() {
-
+	int i, j, k, l,num;
+	char a;
+	printf("Input the number: ");
+	scanf("%d", &num);
+	for (i = 0; i < num; i++) {
+		a = 'A';
+		for (k = 0; k < num - i; k++)
+			printf(" ");
+		for (j = 0; j <= i; j++) {
+			printf("%c", a);
+			a++;
+		}
+		a = a - 1;
+		for (l = 0; l < i; l++) {
+			printf("%c", --a);
+		}
+		printf("\n");
+	}
 }
 
 
@@ -138,5 +155,6 @@ int main() {
 	function_7();
 	function_8();
 	function_9();
+	function_10();
 	return 0;
 }
