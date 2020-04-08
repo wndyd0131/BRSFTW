@@ -60,17 +60,63 @@ void function_16() {
 	for (i = 0; i < n; i++) {
 		printf("%d ", arr[i]);
 	}
+	printf("\n");
+}
+
+void function_17() {
+	int arr[MAX_SIZE], count = 0, i, j, k = 0, n;
+	int table[MAX_SIZE];
+	printf("How many numbers?\n");
+	scanf("%d", &n);
+	for (i = 0; i < n; i++) {
+		printf("Input the number: ");
+		scanf("%d", &arr[i]);
+	}
+	for (i = 0; i < n; i++) {
+		for (j = 0; j < i; j++) {
+			if (table[j] == arr[i])
+				break;
+			else
+				table[k++] = arr[i];
+			if (arr[i] == arr[j])
+				count += 1;
+		}
+
+	}
+	printf("Total number of duplicate numbers: %d\n\n", count);
+}
+void function_18() {
+	int arr1[MAX_SIZE], arr2[MAX_SIZE], i, j, num1, num2;
+	printf("How many numbers in array1?\n");
+	scanf("%d", &num1);
+	printf("How many numbers in array2?\n");
+	scanf("%d", &num2);
+	for (i = 0; i < num1; i++) {
+		printf("Input the number in array 1: ");
+		scanf("%d", &num1);
+	}
+	for (i = 0; i < num2; i++) {
+		printf("Input the number in array 2: ");
+		scanf("%d", &num2);
+	}
+	for (i = 0; i < num1; i++) {
+		for (j = 0; j < num2; j++) {
+
+		}
+	}
 }
 
 
 int main() {
+	/*
 	function_11();
 	function_12();
-	/*
 	function_13();
 	function_14();
 	function_15();
-	*/
 	function_16();
+	*/
+	function_17();
+	function_18();
 	return 0;
 }
